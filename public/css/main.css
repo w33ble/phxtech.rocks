@@ -6,11 +6,35 @@ body {
   background-size: cover;
 }
 
+a {
+  text-decoration: none;
+}
+
+p {
+  margin-left: 20px;
+}
+
 #content {
-  margin: 20px;
+  margin: 20px auto;
   padding: 20px;
   background-color: #fff;
   opacity: 0.8;
-  filter: alpha(opacity=80); // For IE
-  -moz-opacity:0.8; // For Firefox < 5.0
+  filter: alpha(opacity=80); /*For IE*/
+  -moz-opacity:0.8; /*For Firefox < 5.0*/
+  max-width: 800px;
+}
+
+.cal-widget {
+  opacity: 1.2;
+  filter: alpha(opacity=120); /*For IE*/
+  -moz-opacity:1.2; /*For Firefox < 5.0*/
+  background: url('../img/calendar-icon.png') no-repeat top+4px left+6px;
+  height: 60px;
+  background-size: 40px;
+}
+
+.cal-widget a {
+  height: 36px;
+  padding: 18px 6px 0px 56px;
+  display: inline-block;
 }

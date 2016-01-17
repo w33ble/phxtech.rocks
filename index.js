@@ -1,7 +1,12 @@
-var express = require('express');
-var ehbs  = require('express-handlebars');
-var app = express();
-var hbs = ehbs.create({
+require('dotenv').load();
+
+const path = require('path');
+const express = require('express');
+const ehbs  = require('express-handlebars');
+const routes = require('./routes');
+
+const app = express();
+const hbs = ehbs.create({
   defaultLayout: 'main',
   extname: '.hbs'
 });
@@ -10,18 +15,13 @@ app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('port', (process.env.PORT || 8080));
 
-app.get('/calendar', function(req, res) {
-  res.redirect(302, 'http://nextplex.com/phoenix-az/calendar');
-});
 
-app.use(express.static(__dirname + '/public', {
+app.use(express.static(path.resolve(__dirname, 'public'), {
   index: false,
   maxAge: '1d'
 }));
 
-app.get('/', function (req, res) {
-  res.render('home');
-});
+app.use('/', routes);
 
 app.get('*', function (req, res) {
   res.redirect(302, '/');

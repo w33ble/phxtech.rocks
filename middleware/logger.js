@@ -1,6 +1,9 @@
 const expressWinston = require('express-winston');
 const winston = require('winston'); // for transports.Console
 
+expressWinston.requestWhitelist.push('ip');
+expressWinston.requestWhitelist.push('ips');
+
 function addServerTransport(transports) {
   const config = {
     host: process.env.WINSTOND_HOST,

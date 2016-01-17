@@ -12,6 +12,8 @@ const hbs = ehbs.create({
   extname: '.hbs'
 });
 
+if (process.env.TRUST_PROXY === 'yes') app.enable('trust proxy');
+
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('port', (process.env.PORT || 8080));

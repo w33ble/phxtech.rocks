@@ -6,7 +6,7 @@ var db = new PouchDB('db/events');
 getEvents()
 .then((events) => {
   var eventDocs = events.map((event) => {
-    db.get(event._id)
+    return db.get(event._id)
     .then((doc) => {
       return db.put(event, event._id, doc._rev);
     })
@@ -15,11 +15,10 @@ getEvents()
     });
   });
 
-  Promise.all(eventDocs)
+  return Promise.all(eventDocs)
   .then(() => {
     console.log('Saved %d events', events.length)
-  })
-  .then(() => {
+
     return db.allDocs()
     .then((docs) => {
       console.log('Database contains %d docs', docs.rows.length)

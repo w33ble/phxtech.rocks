@@ -18,10 +18,10 @@ function mapDayEvents($, month) {
       var id = href.split('/').pop().split('-')[0];
       var event = {
         _id: id,
-        detailsId: detailsId,
+        details_id: detailsId,
         title: $event.text(),
         href: href,
-        date: date.toISOString(),
+        date: date,
       };
 
       results.push(event);
@@ -48,7 +48,30 @@ function getEvents() {
     var $ = cheerio.load(html);
 
     var tables = $('#event_calendar table');
-    return tables.map(walkDays($)).toArray();
+    var events = tables.map(walkDays($)).toArray();
+
+    return events.map((event) => {
+      var $details = $('#' + event.detailsId);
+      var address = $details.find('address').first().find('strong').text();
+      var time = $('#' + event.detailsId + ' time').first().text().replace(/\s\s/g, ' ');
+      var startTime = time.match(/at.+?(\d\:\d.+?(am|pm))/);
+      var endTime = time.match(/to.+?(\d\:\d.+?(am|pm))/);
+
+      if (startTime) {
+        var timeParts = startTime[1].match(/(\d.*?)\:(\d.*?)(am|pm)/);
+        event.date.add(timeParts[1], 'hours');
+        event.date.add(timeParts[2], 'minutes');
+        if (timeParts[3] === 'pm') event.date.add(12, 'hours');
+      }
+
+      return Object.assign(event, {
+        address: address,
+        time: time,
+        start_time: startTime && startTime[1],
+        end_time: endTime && endTime[1],
+        date: event.date.toISOString()
+      });
+    });
   })
 }
 

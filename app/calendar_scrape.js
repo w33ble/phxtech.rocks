@@ -10,21 +10,22 @@ getEvents()
   var eventDocs = events.map((event) => {
     return db.get(event._id)
     .then((doc) => {
-      return db.put(Object.assign(doc, event));
+      return Object.assign(doc, event);
     })
     .catch((err) => {
-      if (err.status === 404) return db.put(event);
+      if (err.status === 404) return event;
       throw err;
     });
   });
 
   return Promise.all(eventDocs)
+  .then((events) => db.bulkDocs(events))
+  .then(() => console.log('Saved %d events', events.length))
+  // show event count
   .then(() => {
-    console.log('Saved %d events', events.length)
-
     return db.allDocs()
     .then((docs) => {
-      console.log('Database contains %d docs', docs.rows.length)
+      console.log('Database contains %d docs', docs.total_rows)
     })
   })
 })

@@ -20,7 +20,7 @@ router.get('/calendar', function(req, res) {
 });
 
 // calendar site redirect
-router.get('/event-feed', function(req, res) {
+router.get('/events.rss', function(req, res) {
   getEvents.thisWeek()
   .then((events) => {
     res.render('event_feed', {

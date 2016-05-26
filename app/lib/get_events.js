@@ -9,9 +9,9 @@ function mapDayEvents($, month) {
     var $this = $(this);
     var day = $this.find('.day-num').first().text();
     var events = $this.find('a');
-    var date = moment(month, 'MMMM YYYY').add(day - 1, 'day');
 
     events.each(function () {
+      var date = moment(month, 'MMMM YYYY').add(day - 1, 'days');
       var $event = $(this);
       var details_id = $event.data('content-source');
       var href = $event.attr('href');
@@ -69,7 +69,8 @@ function getEvents() {
         time: time,
         start_time: startTime && startTime[1],
         end_time: endTime && endTime[1],
-        date: event.date.toISOString()
+        date: event.date.toISOString(),
+        timestamp: event.date.valueOf(),
       });
     });
   })

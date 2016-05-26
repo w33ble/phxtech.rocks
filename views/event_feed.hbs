@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+  <channel>
+    <xhtml:meta xmlns:xhtml="http://www.w3.org/1999/xhtml" name="robots" content="noindex" />
+    <title>phxtech.rocks :: events</title>
+    <link>http://phxtech.rocks/</link>
+    <description>RSS feed of local tech events</description>
+    <language>en-us</language>
+
+    {{#each events}}
+    <item>
+      <title><![CDATA[{{title}}]]></title>
+      <description><![CDATA[{{title}}<br />{{details}}]]></description>
+      <link>{{href}}</link>
+    </item>
+    {{/each}}
+  </channel>
+</rss>

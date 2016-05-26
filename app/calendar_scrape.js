@@ -10,10 +10,11 @@ getEvents()
   var eventDocs = events.map((event) => {
     return db.get(event._id)
     .then((doc) => {
-      return db.put(event, event._id, doc._rev);
+      return db.put(Object.assign(doc, event));
     })
-    .catch(() => {
-      return db.put(event);
+    .catch((err) => {
+      if (err.status === 404) return db.put(event);
+      throw err;
     });
   });
 

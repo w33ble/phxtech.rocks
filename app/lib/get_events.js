@@ -13,12 +13,12 @@ function mapDayEvents($, month) {
 
     events.each(function () {
       var $event = $(this);
-      var detailsId = $event.data('content-source');
+      var details_id = $event.data('content-source');
       var href = $event.attr('href');
       var id = href.split('/').pop().split('-')[0];
       var event = {
         _id: id,
-        details_id: detailsId,
+        details_id: details_id,
         title: $event.text(),
         href: href,
         date: date,
@@ -51,9 +51,9 @@ function getEvents() {
     var events = tables.map(walkDays($)).toArray();
 
     return events.map((event) => {
-      var $details = $('#' + event.detailsId);
+      var $details = $('#' + event.details_id);
       var address = $details.find('address').first().find('strong').text();
-      var time = $('#' + event.detailsId + ' time').first().text().replace(/\s\s/g, ' ');
+      var time = $('#' + event.details_id + ' time').first().text().replace(/\s\s/g, ' ');
       var startTime = time.match(/at.+?(\d\:\d.+?(am|pm))/);
       var endTime = time.match(/to.+?(\d\:\d.+?(am|pm))/);
 

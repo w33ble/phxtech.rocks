@@ -30,12 +30,20 @@ router.get('/events.rss', function(req, res) {
   }).
   catch((err) => {
     res.status(500).end();
-  })
+  });
 });
 
 // home page route
 router.get('/', function (req, res) {
-  res.render('home');
+  getEvents.today()
+  .then((events) => {
+    res.render('home', {
+      events: events
+    });
+  }).
+  catch((err) => {
+    res.status(500).end();
+  })
 });
 
 module.exports = router;

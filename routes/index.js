@@ -23,15 +23,9 @@ router.get('/calendar', function(req, res) {
 router.get('/event-feed', function(req, res) {
   getEvents.thisWeek()
   .then((events) => {
-    var displayEvents = events.map((event) => {
-      event.details = event.address + ' - ' + event.time;
-      event.href = 'http://nextplex.com/' + event.href;
-      return event;
-    })
-
     res.render('event_feed', {
       layout: false,
-      events: displayEvents
+      events: events
     });
   }).
   catch((err) => {

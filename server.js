@@ -4,7 +4,7 @@ const path = require('path');
 const express = require('express');
 const ehbs  = require('express-handlebars');
 const routes = require('./routes');
-const mwLogger = require('./middleware/logger');
+const mwLogger = require('./lib/middleware/logger');
 
 const app = express();
 const hbs = ehbs.create({

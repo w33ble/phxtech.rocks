@@ -1,3 +1,5 @@
+require('dotenv').load();
+
 var PouchDB = require('pouchdb');
 var getEvents = require('./lib/get_events');
 

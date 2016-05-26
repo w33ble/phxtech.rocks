@@ -5,6 +5,7 @@ const express = require('express');
 const ehbs  = require('express-handlebars');
 const routes = require('./routes');
 const mwLogger = require('./lib/middleware/logger');
+const scraperCron = require('./lib/scraper_cron');
 
 const app = express();
 const hbs = ehbs.create({
@@ -34,5 +35,7 @@ app.get('*', function (req, res) {
 app.use(mwLogger.error);
 
 app.listen(app.get('port'), function () {
+  var c = scraperCron.init();
+
   console.log('Server listening on port', app.get('port'));
 });

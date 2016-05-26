@@ -17,12 +17,12 @@ function getRealPage() {
   return axios.get('http://nextplex.com/phoenix-az/calendar')
   .then((response) => response.data)
   .then((html) => {
-    if (mockData) fs.writeFileSync('page.html', html);
+    if (mockData === 'yes') fs.writeFileSync('page.html', html);
     return html;
   });
 }
 
 module.exports = function getPage() {
-  if (mockData) return getMockPage();
+  if (mockData === 'yes') return getMockPage();
   return getRealPage();
 }

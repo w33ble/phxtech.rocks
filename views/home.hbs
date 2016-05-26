@@ -12,3 +12,18 @@
 <div class="cal-widget">
   <a href="/calendar">check out the event calendar</a>
 </div>
+
+{{#if events}}
+<h2>join us today</h2>
+
+<div class="event-list">
+  <ul>
+    {{#each events}}
+    <li>
+      <div class="title"><a href="{{href}}">{{title}}</a></div>
+      <div class="details">{{address}} at {{start_time}}</div>
+    </li>
+    {{/each}}
+  </ul>
+</div>
+{{/if}}

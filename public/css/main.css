@@ -8,6 +8,7 @@ body {
 
 a {
   text-decoration: none;
+  color: #00bcd4;
 }
 
 p {
@@ -35,6 +36,16 @@ p {
 
 .cal-widget a {
   height: 36px;
-  padding: 18px 6px 0px 56px;
+  padding: 16px 6px 0px 56px;
   display: inline-block;
+  font-size: 1.4em;
+}
+
+.event-list ul li {
+  margin-bottom: 10px;
+  color: #727272
+}
+
+.event-list .details {
+  padding-top: 2px;
 }

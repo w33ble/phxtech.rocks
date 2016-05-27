@@ -9,7 +9,6 @@ const scraperCron = require('./lib/scraper_cron');
 
 const app = express();
 const hbs = ehbs.create({
-  defaultLayout: 'main',
   extname: '.hbs'
 });
 

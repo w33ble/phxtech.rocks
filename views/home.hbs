@@ -1,29 +1,93 @@
-<h1>phxtech.rocks</h1>
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>phxtech.rocks</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--[if lte IE 8]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script><![endif]-->
+    <link rel="stylesheet" href="css/main.css" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
+  </head>
+  <body>
 
-<h2>join us on online</h2>
+    <!-- Header -->
+      <div id="header">
+        <span class="logo icon fa-code"></span>
+        <h1>phxtech.rocks</h1>
+      </div>
 
-<ul>
-  <li>in #phxtech on <a href="https://webchat.freenode.net/">freenode</a></li>
-  <li>on the <a href="https://azwebdevs.org/">{az}webdevs</a> slack</li>
-  </ul>
+    <!-- Main -->
+      <div id="main">
 
-<h2>join us in real life</h2>
+        <div class="box alt container">
+          <section class="feature left">
+            <a href="#" class="image icon fa-calendar"><img src="images/pic02.jpg" alt="" /></a>
+            <div class="content">
+              <h3>Come Hang Out</h3>
+              <p>Find an event <a href="/calendar">on the calendar</a></p>
+            </div>
+          </section>
+          <section class="feature right">
+            <a href="#" class="image icon fa-comments-o"><img src="images/pic01.jpg" alt="" /></a>
+            <div class="content">
+              <h3>Connect Online</h3>
+              <ul>
+                <li>Join us in #phxtech on <a href="https://webchat.freenode.net/">freenode</a></li>
+                <li>or on the <a href="https://azwebdevs.org/">{az}webdevs</a> slack</li>
+              </ul>
 
-<div class="cal-widget">
-  <a href="/calendar">check out the event calendar</a>
-</div>
+            </div>
+          </section>
+        </div>
 
-{{#if events}}
-<h2>join us today</h2>
+        <!-- Events -->
+        {{#if events}}
+        <div class="box container">
+          <header>
+            <h2>Happening Today</h2>
+          </header>
+          <section>
+            <ul class="default">
+              {{#each events}}
 
-<div class="event-list">
-  <ul>
-    {{#each events}}
-    <li>
-      <div class="title"><a href="{{href}}">{{title}}</a></div>
-      <div class="details">{{address}} at {{start_time}}</div>
-    </li>
-    {{/each}}
-  </ul>
-</div>
-{{/if}}
+              <li>
+                <div class="title"><a href="{{href}}">{{title}}</a></div>
+                <div class="details">{{address}} at {{start_time}}</div>
+              </li>
+
+              {{/each}}
+            </ul>
+          </section>
+        </div>
+        {{/if}}
+
+      </div>
+
+    <!-- Footer -->
+      <div id="footer">
+        <div class="container 75%">
+
+          <header class="major last">
+            <h2>Join us, won't you?</h2>
+          </header>
+
+          <!-- <ul class="icons">
+            <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+            <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+            <li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+            <li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+          </ul> -->
+
+          <ul class="copyright">
+            <li>&copy; phxtech.rocks - all rights reserved.</li><li>design: <a href="http://html5up.net">HTML5 UP</a></li>
+          </ul>
+
+        </div>
+      </div>
+  </body>
+</html>
+<!--
+  Directive by HTML5 UP
+  html5up.net | @n33co
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->

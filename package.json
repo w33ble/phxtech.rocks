@@ -7,7 +7,7 @@
     "start": "node server",
     "scrape": "DEBUG=phxtech:scraper node scraper",
     "dev": "nodemon --ext js",
-    "prod": "npm run build && echo 'ensure pm2 is available'; pm2 start app.json",
+    "prod": "echo 'ensure pm2 is available'; pm2 start app.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

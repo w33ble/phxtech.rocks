@@ -14,7 +14,7 @@
     "type": "git",
     "url": "git@github.com:w33ble/phxtech.rocks.git"
   },
-  "author": "",
+  "author": "Joe Fleming (https://github.com/w33ble)",
   "license": "ISC",
   "dependencies": {
     "axios": "~0.11.1",

@@ -8,7 +8,9 @@
     "scrape": "DEBUG=phxtech:scraper node scraper",
     "dev": "nodemon --ext js",
     "prod": "echo 'ensure pm2 is available'; pm2 start app.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -29,7 +31,8 @@
     "moment": "^2.18.1",
     "pouchdb": "^6.1.2",
     "pouchdb-find": "^0.10.5",
-    "winston": "^2.3.1"
+    "winston": "^2.3.1",
+    "snyk": "^1.41.1"
   },
   "devDependencies": {
     "node-sass": "^4.5.2",
@@ -37,5 +40,6 @@
   },
   "engines": {
     "node": "^6.9.5"
-  }
+  },
+  "snyk": true
 }

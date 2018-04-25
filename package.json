@@ -1,6 +1,7 @@
 {
   "name": "phxtech-rocks",
   "version": "4.2.0",
+  "private": true,
   "description": "",
   "main": "server.js",
   "scripts": {
@@ -37,5 +38,8 @@
   },
   "engines": {
     "node": "^6.9.5"
-  }
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }

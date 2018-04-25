@@ -1,5 +1,13 @@
-.DS_Store
 node_modules
 npm-debug.log
+yarn-error.log
+.DS_Store
+.*.swp
+.env
+coverage
+.nyc_output
+coverage.lcov
+/lib
+/test/bundle.js
 .env
 db

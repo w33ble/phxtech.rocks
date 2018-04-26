@@ -1,8 +1,6 @@
-var PouchDB = require('pouchdb');
-var scrapeEvents = require('./scrape_events');
-var debug = require('./debug')('scraper');
-
-var db = new PouchDB('db/events');
+var db = require('phxtech-db');
+var debug = require('phxtech-debug')('scraper');
+var scrapeEvents = require('./lib/scrape_events');
 
 module.exports = function saveEvents() {
   return scrapeEvents()

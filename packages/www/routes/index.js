@@ -29,6 +29,7 @@ router.get('/events.rss', function(req, res) {
     });
   }).
   catch((err) => {
+    console.error(err);
     res.status(500).end();
   });
 });
@@ -42,6 +43,7 @@ router.get('/', function (req, res) {
     });
   }).
   catch((err) => {
+    console.error(err);
     res.status(500).end();
   })
 });

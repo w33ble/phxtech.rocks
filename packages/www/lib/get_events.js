@@ -1,10 +1,5 @@
 var moment = require('moment');
-var PouchDB = require('pouchdb');
-var pouchFind = require('pouchdb-find')
-
-PouchDB.plugin(pouchFind);
-
-var db = new PouchDB('db/events');
+var db = require('phxtech-db');
 
 function findFromDate(date, days) {
   days = parseInt(days) || 1;

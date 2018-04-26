@@ -1,0 +1,3 @@
+var saveEvents = require('.');
+
+saveEvents();

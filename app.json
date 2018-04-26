@@ -1,6 +1,6 @@
 {
     "name": "phxtech.rocks",
-    "script": "server.js",
+    "script": "packages/www/index.js",
     "max_memory_restart": "80M",
     "env": {
         "NODE_ENV": "production"

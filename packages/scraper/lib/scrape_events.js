@@ -3,7 +3,7 @@ var path = require('path');
 var cheerio = require('cheerio');
 var moment = require('moment');
 var axios = require('axios');
-var debug = require('./debug')('scraper');
+var debug = require('phxtech-debug')('scraper');
 
 var mockData = process.env.MOCK_DATA || false;
 

@@ -1,0 +1,28 @@
+{
+  "name": "www",
+  "version": "4.2.0",
+  "private": true,
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon --ext js",
+    "prod": "echo 'ensure pm2 is available'; pm2 start app.json",
+    "build": "for i in main ie8; do node-sass --output-style compact src/sass/${i}.scss --output public/css; done",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "express-winston": "^2.5.1",
+    "moment": "^2.22.1",
+    "phxtech-db": "*",
+    "phxtech-debug": "*",
+    "winston": "^2.4.2"
+  },
+  "devDependencies": {
+    "node-sass": "^4.8.3",
+    "nodemon": "^1.17.3"
+  }
+}

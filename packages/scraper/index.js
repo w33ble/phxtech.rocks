@@ -4,14 +4,17 @@ var scrapeEvents = require('./lib/scrape_events');
 
 module.exports = function saveEvents() {
   return scrapeEvents()
-  .then((events) => {
-    debug('Scraper found %d events', events.length);
+    .then(events => {
+      debug('Scraper found %d events', events.length);
 
-    events.forEach(event => {
-      db.get('events').upsert(event).write();
-    });
+      events.forEach(event => {
+        db
+          .get('events')
+          .upsert(event)
+          .write();
+      });
 
-    debug('Database contains %d docs', db.get('events').value().length)
-  })
-  .catch(console.log)
-}
+      debug('Database contains %d docs', db.get('events').value().length);
+    })
+    .catch(err => console.error(err));
+};

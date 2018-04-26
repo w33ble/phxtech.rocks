@@ -1,8 +1,16 @@
-{
-    "name": "phxtech.rocks",
-    "script": "packages/www/index.js",
-    "max_memory_restart": "80M",
-    "env": {
-        "NODE_ENV": "production"
-    }
-}
+[{
+  "name": "phxtech.rocks site",
+  "script": "packages/www/index.js",
+  "max_memory_restart": "120M",
+  "env": {
+    "NODE_ENV": "production"
+  }
+}, {
+  "name": "phxtech.rocks scraper",
+  "script": "packages/scraper/cron.js",
+  "max_memory_restart": "120M",
+  "env": {
+    "NODE_ENV": "production",
+    "DEBUG": "phxtech:scraper"
+  }
+}]

@@ -8,13 +8,14 @@ const mwLogger = require('./lib/middleware/logger');
 
 const app = express();
 const hbs = ehbs.create({
-  extname: '.hbs'
+  extname: '.hbs',
 });
 
 if (process.env.TRUST_PROXY === 'yes') app.enable('trust proxy');
 
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
+app.set('views', path.resolve(__dirname, 'views'));
 app.set('port', (process.env.PORT || 8080));
 
 app.use(mwLogger.access);

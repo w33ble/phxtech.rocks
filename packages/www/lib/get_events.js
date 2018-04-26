@@ -4,34 +4,35 @@ var db = require('phxtech-db');
 function findFromDate(date, days) {
   days = parseInt(days) || 1;
 
-  var startDate = moment(date).startOf('day').valueOf();
-  var endDate = moment(date).add(days - 1, 'days').endOf('day').valueOf();
+  var startDate = moment(date)
+    .startOf('day')
+    .valueOf();
 
-  return db.createIndex({
-    index: {
-      fields: ['timestamp']
-    }
-  }).then(function () {
-    return db.find({
-      selector: {
-        timestamp: { $gte: startDate, $lte: endDate }
-      },
-      sort: ['timestamp']
-    })
-    .then((data) => {
-      return data.docs.map((event) => {
-        event.details = event.address + ' - ' + event.time;
-        event.href = 'http://nextplex.com/' + event.href;
-        return event;
-      })
-    });
+  var endDate = moment(date)
+    .add(days - 1, 'days')
+    .endOf('day')
+    .valueOf();
+
+  return new Promise(resolve => {
+    const matches = db
+      .get('events')
+      .filter(event => event.timestamp >= startDate && event.timestamp <= endDate)
+      .map(event =>
+        Object.assign({}, event, {
+          details: event.address + ' - ' + event.time,
+          href: 'http://nextplex.com/' + event.href,
+        })
+      )
+      .sortBy('timestamp')
+      .value();
+    resolve(matches);
   });
 }
 
-exports.today = function () {
+exports.today = function() {
   return findFromDate(moment.now(), 1);
-}
+};
 
-exports.thisWeek = function () {
+exports.thisWeek = function() {
   return findFromDate(moment.now(), 7);
-}
+};

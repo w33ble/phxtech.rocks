@@ -10,4 +10,4 @@ coverage.lcov
 /lib
 /test/bundle.js
 .env
-db
+db.json

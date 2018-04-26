@@ -1,7 +1,21 @@
-var PouchDB = require('pouchdb');
-var pouchFind = require('pouchdb-find')
+var path = require('path');
+var low = require('lowdb');
+var FileSync = require('lowdb/adapters/FileSync');
+var lodashId = require('lodash-id');
 
-PouchDB.plugin(pouchFind);
+// set up the json database
+var adapter = new FileSync(path.resolve(__dirname, 'db.json'));
+var db = low(adapter);
 
-var db = new PouchDB('../phxtech-db/db');
+// add support for id based queries, see https://github.com/typicode/lodash-id
+db._.mixin(lodashId);
+db._.id = '_id';
+
+db
+  .defaults({
+    events: [],
+    groups: [],
+  })
+  .write();
+
 module.exports = db;

@@ -1,6 +1,6 @@
 {
   "name": "phxtech-rocks",
-  "version": "4.2.0",
+  "version": "5.0.0",
   "private": true,
   "description": "",
   "main": "server.js",
@@ -17,10 +17,8 @@
   },
   "author": "Joe Fleming (https://github.com/w33ble)",
   "license": "MIT",
-  "dependencies": {
-  },
-  "devDependencies": {
-  },
+  "dependencies": {},
+  "devDependencies": {},
   "engines": {
     "node": "^6.14.0"
   },

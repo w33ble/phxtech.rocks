@@ -6,25 +6,12 @@ module.exports = function saveEvents() {
   return scrapeEvents()
   .then((events) => {
     debug('Scraper found %d events', events.length);
-    var eventDocs = events.map((event) => {
-      return db.get(event._id)
-      .then((doc) => {
-        return Object.assign(doc, event);
-      })
-      .catch((err) => {
-        if (err.status === 404) return event;
-        throw err;
-      });
+
+    events.forEach(event => {
+      db.get('events').upsert(event).write();
     });
 
-    return Promise.all(eventDocs)
-    .then((events) => db.bulkDocs(events))
-    .then(() => {
-      return db.allDocs()
-      .then((docs) => {
-        debug('Database contains %d docs', docs.total_rows)
-      })
-    })
+    debug('Database contains %d docs', db.get('events').value().length)
   })
   .catch(console.log)
 }

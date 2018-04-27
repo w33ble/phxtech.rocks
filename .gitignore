@@ -7,7 +7,9 @@ yarn-error.log
 coverage
 .nyc_output
 coverage.lcov
-/lib
 /test/bundle.js
 .env
 db.json
+lib/
+dist/
+data/

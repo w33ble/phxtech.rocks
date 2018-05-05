@@ -7,4 +7,5 @@ export default {
   migrations: {
     tableName: 'migrations',
   },
+  debug: Boolean(process.env.KNEX_DEBUG),
 };

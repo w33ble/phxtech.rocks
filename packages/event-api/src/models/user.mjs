@@ -1,6 +1,6 @@
 import BaseModel from './base.mjs';
 
-export default class User extends BaseModel {
+class User extends BaseModel {
   static get tableName() {
     return 'users';
   }
@@ -17,4 +17,20 @@ export default class User extends BaseModel {
       },
     };
   }
+
+  static get relationships() {
+    return {
+      groups: {
+        model: 'Group',
+        type: 'left',
+        relation: BaseModel.hasMany,
+        remote: 'user_id',
+        // local: 'id', // implied
+      },
+    };
+  }
 }
+
+User.register();
+
+export default User;

@@ -1,6 +1,6 @@
 import BaseModel from './base.mjs';
 
-export default class Event extends BaseModel {
+class Event extends BaseModel {
   static get tableName() {
     return 'events';
   }
@@ -24,3 +24,7 @@ export default class Event extends BaseModel {
     };
   }
 }
+
+Event.register();
+
+export default Event;

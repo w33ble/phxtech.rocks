@@ -13,7 +13,7 @@
     "precommit": "lint-staged",
     "migrate": "node -r esm scripts/migrate.mjs",
     "version": "auto-changelog -p && auto-authors && git add CHANGELOG.md AUTHORS.md",
-    "start": "node ."
+    "start": "node -r esm ."
   },
   "repository": {
     "type": "git",
@@ -56,6 +56,7 @@
     "cjs": true
   },
   "dependencies": {
+    "ajv": "^6.4.0",
     "esm": "^3.0.17",
     "knex": "^0.14.6",
     "puid": "^1.0.7",

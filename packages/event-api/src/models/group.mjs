@@ -28,8 +28,8 @@ class Group extends BaseModel {
         relation: BaseModel.belongsTo,
         local: 'user_id',
         // remote: 'id', // implied
-      }
-    }
+      },
+    };
   }
 }
 

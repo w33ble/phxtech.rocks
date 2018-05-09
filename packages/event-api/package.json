@@ -56,10 +56,10 @@
     "cjs": true
   },
   "dependencies": {
-    "ajv": "^6.4.0",
     "esm": "^3.0.17",
     "knex": "^0.14.6",
     "puid": "^1.0.7",
+    "simple-knex-model": "^0.2.0",
     "sqlite3": "^4.0.0"
   },
   "devDependencies": {

@@ -23,6 +23,26 @@ class Event extends BaseModel {
       },
     };
   }
+
+  static get relationships() {
+    return {
+      groups: {
+        model: 'Group',
+        relation: BaseModel.belongsTo,
+        remote: 'event_id',
+      },
+      users: {
+        model: 'User',
+        relation: BaseModel.belongsToMany,
+        // joinType: 'inner', // implied
+        // remote: 'id', // implied
+        // local: 'id', // implied
+        joinLocal: 'event_id',
+        joinRemote: 'user_id',
+        joinTable: 'events_users',
+      },
+    };
+  }
 }
 
 Event.register();

@@ -15,6 +15,12 @@ app.use(bodyParser.json());
 
 app.use(cookieParser());
 
+// fake user object
+app.use((req, res, next) => {
+  req.user = { isAdmin: true };
+  next();
+});
+
 routes(app);
 
 app.listen(port, () => {

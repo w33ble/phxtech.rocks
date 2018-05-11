@@ -1,67 +1,39 @@
 /* eslint no-console: 0 */
 import express from 'express';
+import { sendResponse, makeArray } from './utils.mjs';
 
-const errorCodes = {
-  BAD_REQUEST: 400,
-  UNAUTHORIZED: 401,
-  FORBIDDEN: 403,
-  NOT_FOUND: 404,
-  SERVER_ERROR: 500,
-};
-
-function sendResponse(res, err, data = {}) {
-  if (res == null) {
-    throw new Error('`sendResponse()` Arguments invalid.');
+/*
+  options Object
+    options.endpoint String base endpoint to use
+    options.pluralEndpoint String base endpoint to use for plural routes
+    options.use Function|[Function] middleware to execute before any other routes in endpoint
+    options.maxListSize Number The maximum number of records to return from list route
+    options.middleware Object middleware to use, keyed by route type (list, get, create, update, delete)
+    options.routes Object handler for any of the default routes, overrides the default
   }
-
-  let statusCode = 200;
-  const headers = {
-    'content-type': 'application/json; charset=utf-8',
-  };
-
-  const response = { data };
-
-  if (err) {
-    response.errors = (Array.isArray(err) ? err : [err]).map(error => {
-      if (typeof error === 'string') {
-        statusCode = errorCodes[error] || 500;
-        return { message: error };
-      }
-
-      if (error instanceof Error) {
-        statusCode = errorCodes[error.message] || 500;
-        return { message: error.message };
-      }
-
-      statusCode = 500;
-      return { message: 'unknown error' };
-    });
-  }
-
-  return res
-    .set(headers)
-    .status(statusCode)
-    .end(JSON.stringify(response));
-}
-
+*/
 export default function createModelRoute(Model, options = {}) {
   const router = express.Router();
   const endpoint = options.endpoint || `/${Model.name.toLocaleLowerCase()}`;
+  const pluralEndpoint = options.pluralEndpoint || `/${Model.name.toLocaleLowerCase()}s`;
   const middleware = options.middleware || {};
+  const routes = options.routes || {};
 
   if (options.use) {
-    (Array.isArray(options.use) ? options.use : [options.use]).forEach(use =>
-      router.use(endpoint, use)
-    );
+    makeArray(options.use).forEach(use => router.use(endpoint, use));
   }
+
+  const applyMiddleware = (type, path, method = 'all') => {
+    if (middleware[type]) makeArray(middleware[type]).forEach(m => router[method](path, m));
+  };
 
   const confirmExists = async (req, res, next) => {
     try {
-      const row = await Model.query()
-        .where({ [Model.primaryKey]: req.params.id })
-        .first();
-      if (!row) sendResponse(res, 'NOT_FOUND');
-      else {
+      const row = await Model.queryById(req.params.id).first();
+
+      if (!row) {
+        sendResponse(res, 'NOT_FOUND');
+      } else {
         req.document = row;
         next();
       }
@@ -72,57 +44,108 @@ export default function createModelRoute(Model, options = {}) {
     }
   };
 
+  // LIST
+  applyMiddleware('list', pluralEndpoint);
+  if (routes.list) {
+    router.get(pluralEndpoint, routes.list);
+  } else {
+    router.get(pluralEndpoint, async (req, res) => {
+      const page = req.query.page || 0;
+      const count = Math.min(req.query.count || 20, options.maxListSize || 100);
+      const filter = req.user.isAdmin ? {} : { status: 'approved' };
+      try {
+        const rows = await Model.query()
+          .where(filter)
+          .orderBy('name')
+          .limit(count)
+          .offset(page * count);
+        sendResponse(res, null, rows);
+      } catch (err) {
+        // TODO: real error logging
+        console.error(err);
+        sendResponse(res, 'SERVER_ERROR');
+        // res.status(400).end({ message: err.message });
+      }
+    });
+  }
+
   // READ
-  if (middleware.read) router.get(middleware.read);
-  router.get(`${endpoint}/:id`, confirmExists, async (req, res) => {
-    sendResponse(res, null, req.document);
-  });
+  applyMiddleware('read', `${endpoint}/:id`);
+  if (routes.read) {
+    router.get(`${endpoint}/:id`, confirmExists, routes.read);
+  } else {
+    router.get(`${endpoint}/:id`, confirmExists, (req, res) => {
+      if (!req.user.isAdmin && !req.document.status.approved) {
+        sendResponse(res, 'NOT_FOUND');
+      }
+
+      sendResponse(res, null, req.document);
+    });
+  }
 
   // CREATE
-  if (middleware.create) router.get(middleware.create);
-  router.post(endpoint, (req, res) =>
-    new Model(req.body)
-      .save()
-      .then(row => sendResponse(res, null, row))
-      .catch(err => {
-        // TODO: real error logging
-        console.error(err);
-        sendResponse(res, 'BAD_REQUEST');
-        // res.status(400).end({ message: err.message });
-      })
-  );
+  applyMiddleware('create', endpoint);
+  if (routes.create) {
+    router.post(endpoint, routes.create);
+  } else {
+    router.post(endpoint, (req, res) =>
+      new Model(req.body)
+        .save()
+        .then(row => sendResponse(res, null, row))
+        .catch(err => {
+          // TODO: real error logging
+          console.error(err);
+          sendResponse(res, 'BAD_REQUEST');
+          // res.status(400).end({ message: err.message });
+        })
+    );
+  }
 
   // UPDATE
-  if (middleware.update) router.get(middleware.update);
-  router.put(`${endpoint}/:id`, confirmExists, (req, res) =>
-    // update document by id
-    Model.query()
-      .where({ [Model.primaryKey]: req.params.id })
-      .update(req.body)
-      // fetch and return updated document
-      .then(() => Model.byId(req.params.id).then(updated => sendResponse(res, null, updated)))
-      .catch(err => {
-        // TODO: real error logging
-        console.error(err);
-        sendResponse(res, 'SERVER_ERROR');
-        // res.status(500).end();
-      })
-  );
+  applyMiddleware('update', `${endpoint}/:id`);
+  if (routes.update) {
+    router.put(`${endpoint}/:id`, confirmExists, routes.update);
+  } else {
+    router.put(`${endpoint}/:id`, confirmExists, async (req, res) => {
+      try {
+        // update document by id
+        const row = await Model.queryById(req.params.id).first();
+        const { valid, errors } = Model.validate({ ...row, ...req.body });
+        if (!valid) {
+          // TODO: real error logging
+          console.error(errors);
+          return sendResponse(res, 'BAD_REQUEST');
+        }
 
-  // DESTROY
-  if (middleware.destroy) router.get(middleware.destroy);
-  router.delete(`${endpoint}/:id`, confirmExists, (req, res) =>
-    Model.query()
-      .where({ [Model.primaryKey]: req.params.id })
-      .del()
-      .then(() => sendResponse(res, null))
-      .catch(err => {
+        // fetch and return updated document
+        const updated = await Model.queryById(req.params.id).first();
+        return sendResponse(res, null, updated);
+      } catch (err) {
         // TODO: real error logging
         console.error(err);
+        return sendResponse(res, 'SERVER_ERROR');
         // res.status(500).end();
-        sendResponse(res, 'SERVER_ERROR');
-      })
-  );
+      }
+    });
+  }
+
+  // DELETE
+  applyMiddleware('delete', `${endpoint}/:id`);
+  if (routes.delete) {
+    router.delete(`${endpoint}/:id`, confirmExists, routes.delete);
+  } else {
+    router.delete(`${endpoint}/:id`, confirmExists, (req, res) =>
+      Model.queryById(req.params.id)
+        .del()
+        .then(() => sendResponse(res, null))
+        .catch(err => {
+          // TODO: real error logging
+          console.error(err);
+          // res.status(500).end();
+          sendResponse(res, 'SERVER_ERROR');
+        })
+    );
+  }
 
   return router;
 }

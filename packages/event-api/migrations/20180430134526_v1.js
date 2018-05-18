@@ -11,7 +11,7 @@ exports.up = knex =>
       t.timestamps(true, true);
       t.string('name').notNull();
       t.string('email').notNull();
-      t.enum('status', statuses).defaultTo('pending');
+      t.enum('status', statuses).defaultTo('pending').notNullable();
     })
     .createTable('groups', t => {
       t
@@ -28,7 +28,7 @@ exports.up = knex =>
         .notNull()
         .defaultTo('meetup');
       t.string('website').nullable();
-      t.enum('status', statuses).defaultTo('pending');
+      t.enum('status', statuses).defaultTo('pending').notNullable();
     })
     .createTable('events', t => {
       t
@@ -45,15 +45,15 @@ exports.up = knex =>
       t.text('address', 'text');
       t.text('description', 'text');
       t.string('website').nullable();
-      t.enum('status', statuses).defaultTo('pending');
+      t.enum('status', statuses).defaultTo('pending').notNullable();
     })
     .createTable('events_users', t => {
       t
         .increments('id')
         .primary()
         .unique();
-      t.string('user_id').references('users.id');
-      t.string('event_id').references('events.id');
+      t.string('user_id').references('users.id').notNullable();
+      t.string('event_id').references('events.id').notNullable();
     });
 
 exports.down = knex =>

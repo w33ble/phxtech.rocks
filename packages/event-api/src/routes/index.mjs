@@ -1,7 +1,7 @@
 import Group from '../models/group.mjs';
 import Event from '../models/event.mjs';
-import modelRoute from '../libs/model_route.mjs';
-import { sendResponse } from '../libs/utils.mjs';
+import modelRoute from '../lib/model_route.mjs';
+import { sendResponse } from '../lib/utils.mjs';
 
 const isAdmin = (req, res, next) => {
   if (req.user.isAdmin) return next();

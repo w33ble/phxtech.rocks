@@ -1,6 +1,6 @@
 import BaseModel from 'simple-knex-model';
 import Puid from 'puid';
-import knex from '../libs/knex.mjs';
+import knex from '../lib/knex.mjs';
 
 const puid = new Puid(false);
 

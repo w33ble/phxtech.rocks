@@ -10,6 +10,5 @@ coverage.lcov
 /test/bundle.js
 .env
 db.json
-lib/
 dist/
 data/

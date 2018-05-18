@@ -24,8 +24,12 @@ class User extends BaseModel {
         model: 'Group',
         relation: BaseModel.hasMany,
         joinType: 'left',
-        remote: 'user_id',
+        // remote: 'user_id',
         // local: 'id', // implied
+      },
+      following: {
+        model: 'Group',
+        relation: BaseModel.belongsToMany,
       },
       events: {
         model: 'Event',
@@ -33,9 +37,9 @@ class User extends BaseModel {
         // joinType: 'inner', // implied
         // remote: 'id', // implied
         // local: 'id', // implied
-        joinLocal: 'user_id',
-        joinRemote: 'event_id',
-        joinTable: 'events_users',
+        // joinLocal: 'user_id',
+        // joinRemote: 'event_id',
+        // joinTable: 'events_users',
       },
     };
   }

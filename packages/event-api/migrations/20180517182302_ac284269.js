@@ -10,6 +10,7 @@ exports.up = knex =>
         .enum('event_type', ['local', 'meetup', 'ical', 'other'])
         .notNull()
         .defaultTo('local');
+      t.string('event_url').nullable();
     })
     .table('events', t => {
       t.index('group_id');
@@ -41,6 +42,7 @@ exports.down = knex =>
     .table('groups', t => {
       t.renameColumn('owner_id', 'user_id');
       t.dropColumn('event_type');
+      t.dropColumn('event_url');
     })
     .table('groups', t => {
       t

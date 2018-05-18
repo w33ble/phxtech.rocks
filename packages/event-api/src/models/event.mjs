@@ -8,7 +8,7 @@ class Event extends BaseModel {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['name', 'owner_id', 'group_id', 'location', 'datetime'],
+      required: ['name', 'location', 'datetime'],
       properties: {
         id: { type: 'string', minLength: 14, maxLength: 14 },
         owner_id: { type: 'string', minLength: 14, maxLength: 14 },
@@ -29,7 +29,8 @@ class Event extends BaseModel {
       groups: {
         model: 'Group',
         relation: BaseModel.belongsTo,
-        remote: 'event_id',
+        joinType: 'left',
+        // remote: 'event_id',
       },
       users: {
         model: 'User',
@@ -37,9 +38,9 @@ class Event extends BaseModel {
         // joinType: 'inner', // implied
         // remote: 'id', // implied
         // local: 'id', // implied
-        joinLocal: 'event_id',
-        joinRemote: 'user_id',
-        joinTable: 'events_users',
+        // joinLocal: 'event_id',
+        // joinRemote: 'user_id',
+        // joinTable: 'events_users',
       },
     };
   }

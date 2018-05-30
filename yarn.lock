@@ -62,6 +62,15 @@
   version "9.6.6"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.6.tgz#439b91f9caf3983cad2eef1e11f6bedcbf9431d2"
 
+"@w33ble/npm-auto-tools@*":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@w33ble/npm-auto-tools/-/npm-auto-tools-0.1.1.tgz#cbc7540db33a96caa5446769949989ae7292257e"
+  dependencies:
+    auto-authors "^0.1.1"
+    auto-changelog "^1.7.0"
+    execa "^0.10.0"
+    getopts "^2.0.6"
+
 abab@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.4.tgz#5faad9c2c07f60dd76770f71cf025b62a63cfd4e"
@@ -397,14 +406,15 @@ auto-bind@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/auto-bind/-/auto-bind-1.2.0.tgz#8b7e318aad53d43ba8a8ecaf0066d85d5f798cd6"
 
-auto-changelog@^1.4.6:
-  version "1.4.6"
-  resolved "https://registry.yarnpkg.com/auto-changelog/-/auto-changelog-1.4.6.tgz#65d3c761c57dde7964e9ee550b27e45ca9772e56"
+auto-changelog@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/auto-changelog/-/auto-changelog-1.7.0.tgz#9034eb7dbd1fb4b893d61906f19456c75a369061"
   dependencies:
     babel-polyfill "^6.26.0"
     commander "^2.9.0"
     fs-extra "^5.0.0"
     handlebars "^4.0.11"
+    lodash.uniqby "^4.7.0"
     parse-github-url "^1.0.1"
     semver "^5.1.0"
 
@@ -1530,6 +1540,16 @@ cross-spawn@^5.0.1, cross-spawn@^5.1.0:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
+cross-spawn@^6.0.0:
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-6.0.5.tgz#4a5ec7c64dfae22c3a14124dbacdee846d80cbc4"
+  dependencies:
+    nice-try "^1.0.4"
+    path-key "^2.0.1"
+    semver "^5.5.0"
+    shebang-command "^1.2.0"
+    which "^1.2.9"
+
 cryptiles@2.x.x:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/cryptiles/-/cryptiles-2.0.5.tgz#3bdfecdc608147c1c67202fa291e7dca59eaa3b8"
@@ -2149,6 +2169,18 @@ event-stream@~3.3.0:
     stream-combiner "~0.0.4"
     through "~2.3.1"
 
+execa@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/execa/-/execa-0.10.0.tgz#ff456a8f53f90f8eccc71a96d11bdfc7f082cb50"
+  dependencies:
+    cross-spawn "^6.0.0"
+    get-stream "^3.0.0"
+    is-stream "^1.1.0"
+    npm-run-path "^2.0.0"
+    p-finally "^1.0.0"
+    signal-exit "^3.0.0"
+    strip-eof "^1.0.0"
+
 execa@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/execa/-/execa-0.7.0.tgz#944becd34cc41ee32a63a9faf27ad5a65fc59777"
@@ -2680,6 +2712,10 @@ get-stream@^3.0.0:
 get-value@^2.0.3, get-value@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/get-value/-/get-value-2.0.6.tgz#dc15ca1c672387ca76bd37ac0a395ba2042a2c28"
+
+getopts@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/getopts/-/getopts-2.0.6.tgz#4788d533a977527e79efd57b5e742ffa0dd33105"
 
 getpass@^0.1.1:
   version "0.1.6"
@@ -4259,6 +4295,10 @@ lodash.sortby@^4.7.0:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/lodash.sortby/-/lodash.sortby-4.7.0.tgz#edd14c824e2cc9c1e0b0a1b42bb5210516a42438"
 
+lodash.uniqby@^4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/lodash.uniqby/-/lodash.uniqby-4.7.0.tgz#d99c07a669e9e6d24e1362dfe266c67616af1302"
+
 lodash@4, lodash@^4.13.1, lodash@^4.15.0, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0, lodash@~4.17.5:
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
@@ -4645,6 +4685,10 @@ needle@^2.2.0:
 negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
+
+nice-try@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.4.tgz#d93962f6c52f2c1558c0fbda6d512819f1efe1c4"
 
 node-abi@^2.2.0:
   version "2.4.1"
@@ -5190,7 +5234,7 @@ path-is-inside@^1.0.1, path-is-inside@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/path-is-inside/-/path-is-inside-1.0.2.tgz#365417dede44430d1c11af61027facf074bdfc53"
 
-path-key@^2.0.0:
+path-key@^2.0.0, path-key@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/path-key/-/path-key-2.0.1.tgz#411cadb574c5a140d3a4b1910d40d80cc9f40b40"
 

@@ -8,13 +8,15 @@ class Event extends BaseModel {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['name', 'location', 'datetime'],
+      required: ['name', 'location', 'date', 'start_time'],
       properties: {
         id: { type: 'string', minLength: 14, maxLength: 14 },
-        owner_id: { type: 'string', minLength: 14, maxLength: 14 },
-        group_id: { type: 'string', minLength: 14, maxLength: 14 },
+        owner_id: { type: 'string', minLength: 0, maxLength: 14 },
+        group_id: { type: 'string', minLength: 0, maxLength: 14 },
         name: { type: 'string' },
-        datetime: { type: 'string', format: 'date-time' },
+        date: { type: 'string', format: 'date' },
+        start_time: { type: 'string', format: 'time' },
+        end_time: { type: 'string', format: 'time' },
         location: { type: 'string', maxLength: 255 },
         address: { type: 'string', maxLength: 1024 },
         description: { type: 'string' },

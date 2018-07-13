@@ -57,9 +57,11 @@
   "dependencies": {
     "date-fns": "^1.29.0",
     "esm": "^3.0.17",
-    "knex": "^0.14.6",
+    "js-data": "^3.0.2",
+    "js-data-sql": "^1.0.1",
+    "knex": "^0.15.0",
     "puid": "^1.0.7",
-    "sqlite3": "^4.0.0"
+    "sqlite3": "^4.0.1"
   },
   "devDependencies": {
     "@w33ble/npm-auto-tools": "*",

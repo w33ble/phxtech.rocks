@@ -1,8 +1,9 @@
-import groupSchema from '../schema/group.mjs';
+import { schema, relations } from '../schema/group.mjs';
 
 export default store => {
   store.defineMapper('group', {
     table: 'groups',
-    schema: groupSchema,
+    schema,
+    relations,
   });
 };

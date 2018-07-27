@@ -1,6 +1,6 @@
 import jsData from 'js-data';
 
-export default new jsData.Schema({
+export const schema = new jsData.Schema({
   title: 'Group',
   type: 'object',
   required: ['name', 'event_type', 'status'],
@@ -17,3 +17,12 @@ export default new jsData.Schema({
     updated_at: { type: 'string', format: 'datetime' },
   },
 });
+
+export const relations = {
+  hasMany: {
+    event: {
+      foreignKey: 'group_id',
+      localField: 'events',
+    },
+  },
+};

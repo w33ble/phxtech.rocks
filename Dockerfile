@@ -14,5 +14,9 @@ FROM node:8-alpine
 WORKDIR /app
 COPY --from=0 /build ./
 COPY . .
+# make sure there's a db
+COPY ./packages/phxtech-db/data/db-empty.json ./packages/phxtech-db/data/db.json
+
+VOLUME [ "/app/packages/phxtech-db/data" ]
 
 CMD [ "node", "packages/www/index.js" ]

@@ -11,6 +11,19 @@ const hbs = ehbs.create({
   extname: '.hbs',
 });
 
+function shutdown() {
+  // clean up your resources and exit
+  process.exit();
+};
+
+process.on('SIGINT', function onSigint() {
+  shutdown();
+});
+
+process.on('SIGTERM', function onSigterm() {
+  shutdown();
+});
+
 if (process.env.TRUST_PROXY === 'yes') app.enable('trust proxy');
 
 app.engine('hbs', hbs.engine);

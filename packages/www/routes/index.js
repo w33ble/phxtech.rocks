@@ -39,6 +39,7 @@ router.get('/', function (req, res) {
   getEvents.today()
   .then((events) => {
     res.render('home', {
+      layout: false,
       events: events
     });
   }).
